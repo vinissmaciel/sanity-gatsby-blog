@@ -28,6 +28,12 @@ export default {
       description: 'This can be used to schedule post for publishing'
     },
     {
+      name: 'bookName',
+      type: 'string',
+      title: 'Nome do livro',
+      description: 'Digite o nome do livro'
+    },
+    {
       name: 'mainImage',
       type: 'mainImage',
       title: 'Main image'
