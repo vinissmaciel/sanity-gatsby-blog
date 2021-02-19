@@ -5,7 +5,7 @@ import {
   filterOutDocsWithoutSlugs,
   filterOutDocsPublishedInTheFuture
 } from '../lib/helpers'
-import BlogPostPreviewList from '../components/blog-post-preview-list'
+import ProdutoPreviewList from '../components/produto-preview-list'
 import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
@@ -53,6 +53,7 @@ export const query = graphql`
             alt
           }
           nome
+          price
           _rawExcerpt
           slug {
             current
@@ -97,7 +98,7 @@ const ProdutoPage = props => {
       <Container>
         <h1 hidden>Welcome to {site.title}</h1>
         {produtoNodes && (
-          <BlogPostPreviewList
+          <ProdutoPreviewList
             title='Produtos'
             nodes={produtoNodes}
             browseMoreHref='/produto/'

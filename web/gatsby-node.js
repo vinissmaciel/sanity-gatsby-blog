@@ -46,6 +46,46 @@ async function createBlogPostPages (graphql, actions) {
     })
 }
 
+async function createProdutoPages (graphql, actions) {
+  const {createPage} = actions
+  const result = await graphql(`
+    {
+      allSanityProduto(
+        filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
+      ) {
+        edges {
+          node {
+            id
+            publishedAt
+            slug {
+              current
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  if (result.errors) throw result.errors
+
+  const produtoEdges = (result.data.allSanityProduto || {}).edges || []
+
+  produtoEdges
+    .filter(edge => !isFuture(edge.node.publishedAt))
+    .forEach((edge, index) => {
+      const {id, slug = {}, publishedAt} = edge.node
+      const dateSegment = format(publishedAt, 'YYYY/MM')
+      const path = `/produto/${dateSegment}/${slug.current}/`
+
+      createPage({
+        path,
+        component: require.resolve('./src/templates/produto.js'),
+        context: {id}
+      })
+    })
+}
+
 exports.createPages = async ({graphql, actions}) => {
   await createBlogPostPages(graphql, actions)
+  await createProdutoPages(graphql, actions)
 }
