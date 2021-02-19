@@ -10,7 +10,6 @@ import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
 import Layout from '../containers/layout'
-import {Link} from 'gatsby'
 
 export const query = graphql`
   fragment SanityImage on SanityMainImage {
@@ -35,14 +34,13 @@ export const query = graphql`
     }
   }
 
-  query IndexPageQuery {
+  query ProdutoPageQuery {
     site: sanitySiteSettings(_id: { regex: "/(drafts.|)siteSettings/" }) {
       title
       description
       keywords
     }
-    posts: allSanityPost(
-      limit: 6
+    produtos: allSanityProduto(
       sort: { fields: [publishedAt], order: DESC }
       filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
     ) {
@@ -54,7 +52,7 @@ export const query = graphql`
             ...SanityImage
             alt
           }
-          title
+          nome
           _rawExcerpt
           slug {
             current
@@ -65,7 +63,7 @@ export const query = graphql`
   }
 `
 
-const IndexPage = props => {
+const ProdutoPage = props => {
   const {data, errors} = props
 
   if (errors) {
@@ -77,8 +75,8 @@ const IndexPage = props => {
   }
 
   const site = (data || {}).site
-  const postNodes = (data || {}).posts
-    ? mapEdgesToNodes(data.posts)
+  const produtoNodes = (data || {}).produtos
+    ? mapEdgesToNodes(data.produtos)
       .filter(filterOutDocsWithoutSlugs)
       .filter(filterOutDocsPublishedInTheFuture)
     : []
@@ -97,13 +95,12 @@ const IndexPage = props => {
         keywords={site.keywords}
       />
       <Container>
-        <Link to="/produto/">Produtos</Link>
         <h1 hidden>Welcome to {site.title}</h1>
-        {postNodes && (
+        {produtoNodes && (
           <BlogPostPreviewList
-            title='Latest blog posts'
-            nodes={postNodes}
-            browseMoreHref='/archive/'
+            title='Produtos'
+            nodes={produtoNodes}
+            browseMoreHref='/produto/'
           />
         )}
       </Container>
@@ -111,4 +108,4 @@ const IndexPage = props => {
   )
 }
 
-export default IndexPage
+export default ProdutoPage

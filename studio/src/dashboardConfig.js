@@ -42,6 +42,11 @@ export default {
       name: 'document-list',
       options: { title: 'Recent blog posts', order: '_createdAt desc', types: ['post'] },
       layout: { width: 'medium' }
+    },
+    {
+      name: 'document-list',
+      options: { title: 'Produtos', order: '_createdAt desc', types: ['produto'] },
+      layout: { width: 'medium' }
     }
   ]
 }
