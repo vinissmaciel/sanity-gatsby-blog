@@ -1,14 +1,12 @@
 import React from 'react'
 import getYouTubeID from 'get-youtube-id' 
+import YouTube from 'react-youtube'
+
 const YouTubePreview = ({value}) => {
-    const id = getYouTubeID(value.url)    
-    const url = `https://www.youtube.com/embed/${id}`
-    if(!id){
-        return <div>Missing YouTube URL</div>
-    }
-    return(
-    <iframe title="YouTube preview" width="560" height="315" src={url} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-)};
+	const { url } = value
+	const id = getYouTubeID(url)
+	return (<YouTube videoId={id} />)
+};
 
 export default{
     name: 'youtube',
