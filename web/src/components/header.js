@@ -21,6 +21,12 @@ const Header = ({onHideNav, onShowNav, showNav, siteTitle}) => (
           <li>
             <Link to='/archive/'>Archive</Link>
           </li>
+          <li>
+            <Link to="/produto/">Produtos</Link>
+          </li>
+          <li>
+          <Link to="/iframe/">iFrame</Link>
+          </li>
         </ul>
       </nav>
     </div>

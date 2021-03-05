@@ -97,7 +97,6 @@ const IndexPage = props => {
         keywords={site.keywords}
       />
       <Container>
-        <Link to="/produto/">Produtos</Link>
         <h1 hidden>Welcome to {site.title}</h1>
         {postNodes && (
           <BlogPostPreviewList

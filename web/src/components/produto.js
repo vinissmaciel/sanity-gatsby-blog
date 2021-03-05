@@ -5,13 +5,17 @@ import {imageUrlFor} from '../lib/image-url'
 import PortableText from './portableText'
 import Container from './container'
 
-import styles from './blog-post.module.css'
+import styles from './produto.module.css'
 
 function ProdutoPost (props) {
   const {_rawBody, nome, mainImage, publishedAt, price} = props
   return (
     <article className={styles.root}>
-      {mainImage && mainImage.asset && (
+      
+      <Container>
+        <div className={styles.grid}>
+          <div className={styles.mainContent}>
+          {mainImage && mainImage.asset && (
         <div className={styles.mainImage}>
           <img
             src={imageUrlFor(buildImageObj(mainImage))
@@ -24,14 +28,12 @@ function ProdutoPost (props) {
           />
         </div>
       )}
-      <Container>
-        <div className={styles.grid}>
-          <div className={styles.mainContent}>
-            <h1 className={styles.title}>{nome}</h1>
-            {_rawBody && <PortableText blocks={_rawBody} />}
-            <p>{price}</p>
+            
           </div>
           <aside className={styles.metaContent}>
+          <h1 className={styles.title}>{nome}</h1>
+            {_rawBody && <PortableText blocks={_rawBody} />}
+          <p>Preço: R$ {price.toLocaleString('pt-br', {minimumFractionDigits: 2})}</p>
             {publishedAt && (
               <div className={styles.publishedAt}>
                 {differenceInDays(new Date(publishedAt), new Date()) > 3
